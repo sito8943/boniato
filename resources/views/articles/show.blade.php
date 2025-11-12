@@ -1,5 +1,7 @@
 <x-site-layout title="{{$article->title}}">
 
+    <div>written by {{$article->author->name}}</div>
+
     {{$article->content}}
 
     <h2 class="font-bold mb-2 mt-8">Comments</h2>
