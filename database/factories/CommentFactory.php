@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Article;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -18,6 +19,7 @@ class CommentFactory extends Factory
     {
         return [
             'content' => fake()->text(),
+            'article_id' => fake()->numberBetween(1,10),
         ];
     }
 }

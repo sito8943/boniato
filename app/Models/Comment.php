@@ -9,4 +9,10 @@ class Comment extends Model
 {
     /** @use HasFactory<\Database\Factories\CommentFactory> */
     use HasFactory;
+
+    // Model relations --------
+    public function article()
+    {
+        return $this->belongsTo(Article::class);
+    }
 }
