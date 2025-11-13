@@ -53,4 +53,14 @@ class CategoryController extends Controller
         // return a response
         return redirect('/categories');
     }
+
+    public function destroy($id)
+    {
+        // data aspects
+        $category = Category::find($id);
+        $category->delete();
+
+        // return a response
+        return redirect('/categories');
+    }
 }
