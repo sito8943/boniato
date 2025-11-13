@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Article;
+use App\Models\Category;
 use App\Models\Comment;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -18,7 +19,23 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         User::factory(5)->create();
-        Article::factory(10)->create();
+
+        Category::create(['name' => 'Burgers']);
+        Category::create(['name' => 'Pizza']);
+        Category::create(['name' => 'Salads']);
+        Category::factory(5)->create();
+        $articles = Article::factory(10)->create();
+
+        // Associate articles with Categories
+        $articles->each(function ($article) {
+            $nr_categories = random_int(0,3);
+            $category_list = [];
+            for ($i = 0; $i < $nr_categories; $i++) {
+                $category_list[] = random_int(1,7);
+            }
+            $article->categories()->attach($category_list);
+        });
+
         Comment::factory(20)->create();
     }
 }
