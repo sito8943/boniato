@@ -9,9 +9,12 @@
             type="text"
             name="name"
             placeholder="Add a category name"
-            value="{{$category->name}}"
-            class="border border-black"
+            value="{{old('name',$category->name)}}"
+            class="border @error('name') border-red-500 @else border-black @enderror"
         >
+        @error('name')
+            <div class="text-red-500">{{$message}}</div>
+        @enderror
 
         <div class="mt-4">
             <button class="bg-gray-200 p-2" type="submit">Update</button>
