@@ -39,6 +39,10 @@ class Article extends Model
             return true;
         }
 
+        if($user->is_admin) {
+            return true;
+        }
+
         return false;
     }
 

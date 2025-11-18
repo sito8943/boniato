@@ -14,6 +14,10 @@ class AdminArticleController extends Controller
     {
         $articles = Article::where('author_id', auth()->id() )->get();
 
+        if(auth()->user()->is_admin) {
+            $articles = Article::all();
+        }
+
         return view('admin.articles.index', compact('articles'));
     }
 
