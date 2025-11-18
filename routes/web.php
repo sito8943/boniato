@@ -19,6 +19,7 @@ Route::get('/dashboard', function () {
 
 Route::middleware('auth')->group(function () {
     Route::resource('admin/categories', \App\Http\Controllers\AdminCategoryController::class)
+    ->middleware('is_admin');
     Route::resource('admin/articles', \App\Http\Controllers\AdminArticleController::class);
 
     Route::get('/profile', [App\Http\Controllers\Userzone\ProfileController::class, 'edit'])->name('profile.edit');
