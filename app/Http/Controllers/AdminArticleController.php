@@ -82,9 +82,18 @@ class AdminArticleController extends Controller
         $validated = $request->validate([
             'title' => ['required', 'string', 'min:10', 'max:40'],
             'content' => ['nullable', 'string', 'min:10', 'max:500'],
+            'photo' => ['nullable', 'image', 'max:2048'],
         ]);
 
-        $article->update($validated);
+        // First process the file and upload it and get reference
+        if($request->hasFile('photo')) {
+            $path = $request->file('photo')->store('articles', 'public');
+            unset($validated['photo']);
+        }
+
+        // add reference to your article
+
+        $article->update($validated + ['photo_path' => $path]);
         return redirect('/admin/articles');
     }
 
