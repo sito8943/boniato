@@ -6,6 +6,8 @@ Route::get('/', \App\Http\Controllers\WelcomeController::class);
 
 Route::get('articles', [\App\Http\Controllers\ArticleController::class, 'index'])->name('articles.index');
 Route::get('articles/{id}', [\App\Http\Controllers\ArticleController::class, 'show'])->name('articles.show');
+Route::post('/articles/add-comment', [\App\Http\Controllers\CommentController::class, 'store'])->name('comments.store');
+
 
 Route::resource('categories', \App\Http\Controllers\CategoryController::class)->only(['index', 'show']);
 
