@@ -18,8 +18,9 @@
     </div>
 
 
+    @if($article->photo_path)
     <img src="/storage/{{$article->photo_path}}" alt="article main image">
-
+    @endif
     {{$article->content}}
 
     <x-article-comments :article="$article" />
