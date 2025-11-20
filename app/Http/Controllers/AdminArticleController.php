@@ -83,7 +83,15 @@ class AdminArticleController extends Controller
             'title' => ['required', 'string', 'min:10', 'max:40'],
             'content' => ['nullable', 'string', 'min:10', 'max:500'],
             'photo' => ['nullable', 'image', 'max:2048'],
+            'categories' => ['nullable'],
         ]);
+
+        if($request->has('categories')) {
+            $article->categories()->sync($validated['categories']);
+            unset($validated['categories']);
+        } else {
+            $article->categories()->sync([]);
+        }
 
         // First process the file and upload it and get reference
         if($request->hasFile('photo')) {
@@ -92,9 +100,9 @@ class AdminArticleController extends Controller
             unset($validated['photo']);
         }
 
-        // add reference to your article
+        $article->update($validated);
 
-        $article->update($validated + ['photo_path' => $path]);
+        // add reference to your article
         return redirect('/admin/articles');
     }
 

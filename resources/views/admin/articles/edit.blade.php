@@ -8,6 +8,18 @@
 
         <x-form-textarea name="content" label="Content" placeholder="" rows="10" value="{{$article->content}}" />
 
+        <div class="mb-4">
+            <label>Categories:</label><br/>
+            @foreach(App\Models\Category::orderBy('name')->get() as $category)
+                <input class="mr-2" type="checkbox" name="categories[]" value="{{$category->id}}" @if($article->categories->contains($category)) checked @endif><label>{{$category->name}}</label>
+            @endforeach
+
+            @error('categories')
+            <div class="text-red-500">{{$message}}</div>
+            @enderror
+        </div>
+
+
         <input type="file" name="photo" />
         @error('photo')
         <div class="text-red-500">{{$message}}</div>
