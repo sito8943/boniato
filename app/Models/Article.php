@@ -4,8 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Image\Enums\Fit;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class Article extends Model implements HasMedia
 {
@@ -54,6 +56,28 @@ class Article extends Model implements HasMedia
         }
 
         return false;
+    }
+
+    public function getImageUrl(string $conversion = 'preview'): string
+    {
+        if($this->media->first()) {
+            return $this->media->first()->getUrl($conversion);
+        } else {
+            return asset('img/article-placeholders/placeholder-'.$conversion.'.jpg');
+        }
+    }
+
+    public function registerMediaConversions(?Media $media = null): void
+    {
+        $this
+            ->addMediaConversion('preview')
+            ->fit(Fit::Crop, 320, 200)
+            ->nonQueued();
+
+        $this
+            ->addMediaConversion('website')
+            ->fit(Fit::Crop, 640, 400)
+            ->nonQueued();
     }
 
 }
