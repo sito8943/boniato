@@ -82,7 +82,7 @@ class AdminArticleController extends Controller
         $validated = $request->validate([
             'title' => ['required', 'string', 'min:10', 'max:40'],
             'content' => ['nullable', 'string', 'min:10', 'max:500'],
-            'photo' => ['nullable', 'image', 'max:2048'],
+            'photo' => ['nullable', 'image', 'max:4096'],
             'categories' => ['nullable'],
         ]);
 
