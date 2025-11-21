@@ -1,6 +1,9 @@
 <x-site-layout title="Articles overview">
 
     <div class="flex flex-col gap-6">
+
+        {{ $articles->links() }}
+
         @foreach($articles as $article)
             <div class="flex">
                 <div class="w-32 shrink-0 mr-4">

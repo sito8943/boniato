@@ -37,7 +37,7 @@ class DatabaseSeeder extends Seeder
         Category::create(['name' => 'Pizza']);
         Category::create(['name' => 'Salads']);
         Category::factory(5)->create();
-        $articles = Article::factory(10)->create();
+        $articles = Article::factory(100)->create();
 
         // Associate articles with Categories
         $articles->each(function ($article) {

@@ -9,8 +9,10 @@ class ArticleController extends Controller
 {
     function index()
     {
+
         // Load data
-        $articles = \App\Models\Article::all();
+        $articles = \App\Models\Article::paginate(10);
+        // in case of category filtering: see whereHas('categories', function($query) use ($category) { $query->where('id', $category->id); })->get();)
 
         // Return view with data
         return view('articles.index', compact('articles'));
